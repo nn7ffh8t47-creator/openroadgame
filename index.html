@@ -257,6 +257,13 @@ p{margin:0}
   if (new Date() >= new Date(2026, 11, 3)) {
     document.querySelectorAll('[data-after]').forEach(function (el) { el.textContent = el.dataset.after; });
   }
+  // on a Mac, the store buttons open the Mac App Store directly (iPhone and iPad already open their App Store)
+  var isMac = /Macintosh/.test(navigator.userAgent) && navigator.maxTouchPoints < 2;
+  if (isMac) {
+    document.querySelectorAll('a[href^="https://apps.apple.com/"]').forEach(function (a) {
+      a.href = 'macappstore://apps.apple.com/app/id6829421962?mt=12';
+    });
+  }
   // trailer: loads from YouTube only on play
   document.querySelector('.trailer__play').addEventListener('click', function () {
     document.getElementById('trailer-frame').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/0KMq4egPavU?autoplay=1&rel=0" title="OPEN ROAD trailer" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
