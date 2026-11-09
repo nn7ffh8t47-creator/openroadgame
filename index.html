@@ -20,17 +20,10 @@
 @font-face{font-family:"Outfit";src:url(assets/fonts/outfit.woff2) format("woff2");font-weight:100 900;font-display:swap}
 
 :root{
-  --ink:#0F1F4D;      /* the icon's night blue */
-  --sky:#2B6CE6;      /* poster sky */
-  --sun:#FFC93C;      /* the sun-O */
-  --ember:#FF7A2F;    /* sunset orange */
-  --red:#E3242B;      /* the convertible */
-  --white:#FFFFFF;
-  --mist:rgba(255,255,255,.72);
-  --display:"Unbounded",system-ui,sans-serif;
-  --body:"Outfit",system-ui,sans-serif;
-  --measure:36rem;
-  --gutter:clamp(1rem,4vw,3rem);
+  --ink:#0F1F4D; --sky:#2B6CE6; --sun:#FFC93C; --red:#E3242B; --white:#FFFFFF;
+  --mist:rgba(255,255,255,.74);
+  --display:"Unbounded",system-ui,sans-serif; --body:"Outfit",system-ui,sans-serif;
+  --measure:36rem; --gutter:clamp(1rem,4vw,3rem); --bar:56px;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
@@ -38,66 +31,54 @@ body{margin:0;background:var(--ink);color:var(--white);font:400 1.125rem/1.6 var
 img,video{display:block;max-width:100%}
 a{color:inherit}
 :focus-visible{outline:3px solid var(--sun);outline-offset:3px;border-radius:4px}
-h1,h2,h3{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0}
+h1,h2{font-family:var(--display);font-weight:800;letter-spacing:-.02em;line-height:1.05;margin:0}
 p{margin:0}
 
-/* ---------- buttons ---------- */
-.btn{display:inline-flex;align-items:center;gap:.6em;font:600 1.0625rem/1 var(--body);text-decoration:none;padding:1em 1.4em;border-radius:999px;background:var(--white);color:var(--ink);transition:transform .15s ease}
+.btn{display:inline-flex;align-items:center;gap:.6em;font:600 1.0625rem/1 var(--body);text-decoration:none;padding:1em 1.4em;border-radius:999px;background:var(--white);color:var(--ink);border:0;cursor:pointer;transition:transform .15s ease}
 .btn:hover{transform:translateY(-1px)}
 .btn svg{width:1.15em;height:1.15em;flex:none}
-.btn--ghost{background:transparent;color:var(--white);box-shadow:inset 0 0 0 2px rgba(255,255,255,.55)}
 
-/* ---------- top bar ---------- */
-.bar{position:absolute;inset:0 0 auto;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:1rem var(--gutter)}
+/* top bar */
+.bar{display:flex;justify-content:space-between;align-items:center;height:var(--bar);padding:0 var(--gutter);background:var(--ink);position:relative;z-index:20}
 .bar__mark{display:flex;align-items:center;gap:.6rem;text-decoration:none;font:700 1rem/1 var(--display);letter-spacing:.02em}
-.bar__mark img{width:36px;height:36px;border-radius:9px}
-.bar .btn{padding:.7em 1.1em;font-size:.95rem}
+.bar__mark img{width:34px;height:34px;border-radius:8px}
+.bar .btn{padding:.65em 1.1em;font-size:.95rem}
 
-/* ---------- hero: the poster is the title ---------- */
+/* hero: the poster, the line under the car */
 .hero{position:relative}
-.hero picture img{width:100%;height:auto;max-height:92svh;object-fit:cover;object-position:50% 45%}
-.hero__art{position:relative}
-.hero__art::after{content:"";position:absolute;inset:auto 0 0;height:22%;background:linear-gradient(to bottom,rgba(15,31,77,0),var(--ink))}
-.hero__copy{position:relative;z-index:2;margin:-1.5rem auto 0;padding:0 var(--gutter);display:grid;gap:1.25rem;max-width:72rem}
-.hero__line{font-family:var(--display);font-weight:900;font-size:clamp(2.2rem,5.6vw,4.8rem);line-height:.95;letter-spacing:-.035em;text-wrap:balance}
-.hero__sub{font-size:clamp(1.05rem,1.6vw,1.3rem);color:var(--mist);max-width:var(--measure)}
-.hero__cta{display:flex;flex-wrap:wrap;gap:.75rem;align-items:center}
+.hero__art{position:relative;height:min(calc(100svh - var(--bar)),150vw);overflow:hidden}
+.hero__art img{width:100%;height:100%;object-fit:cover;object-position:50% 22%}
+.hero__art::after{content:"";position:absolute;inset:auto 0 0;height:34%;background:linear-gradient(to bottom,rgba(15,31,77,0),rgba(15,31,77,.9) 75%,var(--ink))}
+.hero__line{position:absolute;z-index:2;left:var(--gutter);right:var(--gutter);bottom:2.6rem;font-family:var(--display);font-weight:900;font-size:clamp(2.2rem,9vw,4.8rem);line-height:.98;letter-spacing:-.035em;text-align:center;text-wrap:balance}
+.hero__cue{position:absolute;z-index:2;left:50%;bottom:.55rem;transform:translateX(-50%);width:2.2rem;height:1.6rem;color:var(--white);opacity:.85}
+.hero__cta{display:flex;flex-wrap:wrap;gap:.75rem 1rem;align-items:center;justify-content:center;padding:1.25rem var(--gutter) 0}
 .hero__price{color:var(--mist);font-size:.98rem}
 
-/* ---------- trailer ---------- */
-.trailer{padding:clamp(3rem,8vw,6rem) var(--gutter);display:grid;gap:1.5rem;justify-items:center}
+/* trailer */
+.trailer{padding:clamp(3rem,8vw,6rem) var(--gutter);display:grid;gap:1.5rem;justify-items:center;align-content:center}
 .trailer__frame{position:relative;width:min(100%,64rem);aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:#000}
 .trailer__frame img,.trailer__frame iframe{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0}
 .trailer__play{position:absolute;inset:0;display:grid;place-items:center;border:0;padding:0;background:rgba(15,31,77,.25);cursor:pointer;color:var(--white)}
 .trailer__play span{display:grid;place-items:center;width:5.5rem;height:5.5rem;border-radius:50%;background:var(--red);box-shadow:0 10px 30px rgba(0,0,0,.35);transition:transform .15s ease}
 .trailer__play:hover span{transform:scale(1.06)}
 .trailer__play svg{width:2rem;height:2rem;margin-left:.3rem}
-.trailer__note{font-size:.95rem;color:var(--mist)}
 .pitch{max-width:var(--measure);text-align:center;font-size:clamp(1.2rem,2vw,1.5rem);line-height:1.45;text-wrap:pretty}
 
-/* ---------- the trip: the page's sky follows the game's two days and one night ---------- */
-.trip__head{padding:clamp(3rem,8vw,6rem) var(--gutter) 2rem;max-width:72rem;margin:0 auto}
-.trip__head h2{font-size:clamp(2rem,5vw,3.6rem);max-width:14ch}
-.trip__head p{margin-top:1rem;color:var(--mist);max-width:var(--measure)}
-.route{list-style:none;margin:0;padding:0;counter-reset:none}
-.stage{--a:#000;--b:#000;--pad:clamp(2.5rem,6vw,4.5rem);background:linear-gradient(var(--a),var(--b));padding:var(--pad) var(--gutter)}
-.stage__in{position:relative;max-width:72rem;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.35fr);gap:clamp(1.5rem,4vw,3.5rem);align-items:center;padding-left:3.25rem}
-.stage__in::before{content:"";position:absolute;left:.7rem;top:calc(-1 * var(--pad));bottom:calc(-1 * var(--pad));width:3px;background:rgba(255,255,255,.45)}
-.stage:first-child .stage__in::before{top:.6rem}
-.stage:last-child .stage__in::before{bottom:auto;top:calc(-1 * var(--pad));height:calc(var(--pad) + .6rem)}
-.stage__in{align-items:start}
-.stage__dot{position:absolute;left:0;top:.35rem;width:1.5rem;height:1.5rem;border-radius:50%;background:var(--sun);box-shadow:0 0 0 4px rgba(255,255,255,.9)}
-.stage__no{font:600 .95rem/1 var(--body);color:var(--mist);margin-bottom:.6rem}
-.stage h3{font-size:clamp(1.6rem,3.4vw,2.6rem)}
-.stage__text p{margin-top:.8rem;max-width:28rem;text-wrap:pretty}
-.stage__pics{display:grid;gap:.75rem}
-.stage__pics--two{grid-template-columns:1fr 1fr}
-.stage__pics img{width:100%;aspect-ratio:16/10;object-fit:cover;border-radius:10px;box-shadow:0 14px 34px rgba(0,0,0,.28)}
-.stage--bare .stage__in{grid-template-columns:minmax(0,1fr)}
-.stage--bare .stage__text{max-width:40rem}
+/* screenshots */
+.shots{padding:clamp(3rem,8vw,6rem) var(--gutter);display:grid;gap:1.75rem;justify-items:center;align-content:center;background:linear-gradient(#C2577A,#2A64C8 45%,#7A4A9E 80%,#C2463A)}
+.shots h2{font-size:clamp(1.9rem,4.4vw,3.2rem);text-align:center}
+.shots__grid{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;width:min(100%,72rem)}
+.shots__grid button{display:block;width:100%;padding:0;border:0;border-radius:10px;overflow:hidden;cursor:zoom-in;background:#000;box-shadow:0 12px 30px rgba(0,0,0,.28)}
+.shots__grid img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .3s ease}
+.shots__grid button:hover img{transform:scale(1.04)}
+.viewer{border:0;padding:0;background:transparent;max-width:min(94vw,1600px);width:100%}
+.viewer::backdrop{background:rgba(5,10,30,.9)}
+.viewer img{width:100%;border-radius:10px}
+.viewer__close{position:absolute;top:.6rem;right:.6rem;width:2.6rem;height:2.6rem;border-radius:50%;border:0;background:rgba(15,31,77,.8);color:#fff;font:600 1.4rem/1 var(--body);cursor:pointer}
 
-/* ---------- one purchase ---------- */
-.deal{padding:clamp(3.5rem,9vw,7rem) var(--gutter);max-width:72rem;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(2rem,5vw,4rem);align-items:center}
+/* one purchase */
+.deal{padding:clamp(3.5rem,9vw,7rem) var(--gutter);display:grid;align-content:center}
+.deal__in{max-width:72rem;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:clamp(2rem,5vw,4rem);align-items:center}
 .deal h2{font-size:clamp(1.9rem,4.4vw,3.2rem)}
 .deal dl{margin:1.75rem 0 0;display:grid;gap:1.1rem}
 .deal dt{font-weight:600}
@@ -105,170 +86,144 @@ p{margin:0}
 .deal video{width:100%;border-radius:14px;aspect-ratio:16/9;object-fit:cover;background:#000}
 .deal .btn{margin-top:2rem}
 
-/* ---------- press ---------- */
-.press{background:var(--white);color:var(--ink);padding:clamp(3rem,8vw,6rem) var(--gutter)}
-.press__in{max-width:72rem;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,5vw,4rem)}
+/* press + footer */
+.press{background:var(--white);color:var(--ink);display:grid;grid-template-rows:1fr auto}
+.press__in{max-width:72rem;width:100%;margin:0 auto;padding:clamp(3rem,8vw,6rem) var(--gutter);display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:clamp(2rem,5vw,4rem);align-content:center}
 .press h2{font-size:clamp(1.7rem,3.6vw,2.6rem)}
 .press p{margin-top:1rem;max-width:var(--measure)}
-.press .btn{background:var(--ink);color:var(--white);margin-top:1.5rem}
+.press__btns{display:flex;flex-wrap:wrap;gap:.75rem;margin-top:1.5rem}
+.press .btn{background:var(--ink);color:var(--white)}
+.press .btn--line{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--ink)}
 .facts{margin:0;display:grid;grid-template-columns:auto 1fr;gap:.55rem 1.5rem;align-content:start;font-size:1.02rem}
 .facts dt{font-weight:600}
 .facts dd{margin:0}
 .facts a{color:var(--sky)}
-
-/* ---------- footer ---------- */
-.foot{padding:2.5rem var(--gutter);display:flex;flex-wrap:wrap;gap:1rem 2rem;justify-content:space-between;align-items:center;font-size:.95rem;color:var(--mist)}
+.foot{background:var(--ink);color:var(--mist);padding:1.5rem var(--gutter);display:flex;flex-wrap:wrap;gap:.75rem 2rem;justify-content:space-between;align-items:center;font-size:.95rem}
 .foot nav{display:flex;gap:1.5rem}
 
+/* panel controls (desktop only) */
+.step,.dots{display:none}
+
 @media (max-width:760px){
-  .stage__in,.deal,.press__in{grid-template-columns:minmax(0,1fr)}
-  .stage__in{padding-left:2.5rem}
-  .stage__dot{width:1.2rem;height:1.2rem;left:.1rem}
-  .stage__in::before{left:.65rem}
-  .bar{position:static;background:var(--ink);padding:.75rem var(--gutter)}
+  .deal__in,.press__in{grid-template-columns:minmax(0,1fr)}
+  .shots__grid{grid-template-columns:repeat(2,1fr);gap:.5rem}
+  .bar__mark span{font-size:.95rem}
 }
-@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-aspect-ratio:4/5){ .hero__art img{object-position:50% 0} }
+
+/* ---------- computer: five still tableaux, side by side ---------- */
+@media (min-width:1000px) and (min-height:620px) and (hover:hover) and (pointer:fine){
+  html,body{height:100%;overflow:hidden}
+  .bar{position:fixed;inset:0 0 auto;background:transparent}
+  .bar__mark{text-shadow:0 1px 8px rgba(0,0,0,.4)}
+  .reel{display:flex;height:100svh;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;overscroll-behavior:none}
+  .reel::-webkit-scrollbar{display:none}
+  .panel{flex:0 0 100vw;height:100svh;scroll-snap-align:start;overflow:hidden}
+  .hero__art{height:100svh}
+  .hero__art img{object-position:50% 40%}
+  .hero__line{bottom:7.6rem;font-size:clamp(2.6rem,5vw,4.8rem)}
+  .hero__cta{position:absolute;z-index:2;left:0;right:0;bottom:3.2rem;padding:0}
+  .hero__cue{display:none}
+  .trailer{height:100svh;padding-top:calc(var(--bar) + 1rem);padding-bottom:3.5rem}
+  .trailer__frame{width:min(64rem,calc((100svh - 17rem) * 16 / 9))}
+  .shots{height:100svh;padding-top:calc(var(--bar) + .5rem);padding-bottom:3.5rem;gap:1.25rem}
+  .shots__grid{width:min(72rem,calc((100svh - 13rem) * 1.6))}
+  .deal{height:100svh}
+  .press{height:100svh}
+  .step{display:grid;place-items:center;position:fixed;top:50%;z-index:30;width:3.6rem;height:3.6rem;margin-top:-1.8rem;border-radius:50%;border:0;background:var(--white);color:var(--ink);box-shadow:0 8px 24px rgba(0,0,0,.3);cursor:pointer;transition:opacity .2s ease,transform .15s ease}
+  .step:hover{transform:scale(1.06)}
+  .step svg{width:1.5rem;height:1.5rem}
+  .step--prev{left:1.25rem}
+  .step--next{right:1.25rem}
+  .step[hidden]{display:none}
+  .step--nudge{animation:nudge 1.4s ease-in-out .8s 2}
+  @keyframes nudge{0%,100%{transform:translateX(0)}50%{transform:translateX(10px)}}
+  .dots{display:flex;gap:.6rem;position:fixed;left:50%;bottom:1rem;transform:translateX(-50%);z-index:30;padding:.45rem .7rem;border-radius:999px;background:rgba(15,31,77,.55)}
+  .dots button{width:.7rem;height:.7rem;border-radius:50%;border:0;padding:0;background:rgba(255,255,255,.45);cursor:pointer}
+  .dots button[aria-current="true"]{background:var(--sun)}
+  .is-press .dots{background:rgba(15,31,77,.8)}
+  .is-press .bar__mark{color:var(--ink);text-shadow:none}
+  .is-press .bar .btn{background:var(--ink);color:var(--white)}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
 
 <header class="bar">
-  <a class="bar__mark" href="#top"><img src="assets/icon-512.png" alt=""><span>OPEN ROAD</span></a>
+  <a class="bar__mark" href="#top" data-go="0"><img src="assets/icon-512.png" alt=""><span>OPEN ROAD</span></a>
   <a class="btn" href="https://apps.apple.com/app/open-road-arcade-cruiser/id6829421962">Pre-order</a>
 </header>
 
-<main id="top">
-  <section class="hero" aria-label="OPEN ROAD">
-    <div class="hero__art"><picture>
-      <source media="(max-aspect-ratio: 4/5)" srcset="assets/poster.jpg">
-      <img src="assets/poster-wide.jpg" alt="OPEN ROAD: a red convertible on a coastal road above a sunlit bay, the title written across the sky.">
-    </picture></div>
-    <div class="hero__copy">
+<main class="reel" id="top">
+  <section class="panel hero" aria-label="OPEN ROAD">
+    <div class="hero__art">
+      <picture>
+        <source media="(max-aspect-ratio: 4/5)" srcset="assets/poster.jpg">
+        <img src="assets/poster-wide.jpg" alt="OPEN ROAD: a red convertible on a coastal road above a sunlit bay, the title written across the sky.">
+      </picture>
       <p class="hero__line">Insert coin. Get&nbsp;ready.</p>
-      <p class="hero__sub">To cruise the classic arcade thrills of the open road: ten stunning stages, coast to coast, against nothing but the clock, traffic and the wind in your hair.</p>
-      <div class="hero__cta">
-        <a class="btn" href="https://apps.apple.com/app/open-road-arcade-cruiser/id6829421962">
-          <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6s1.8-.8 3.3-.8 2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.2zM14 5.3c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.1.1 2.3-.6 3.1-1.5z"/></svg>
-          Pre-order on the App Store
-        </a>
-        <span class="hero__price">$2.99 for iPhone, iPad and Mac. Out December 3.</span>
-      </div>
+      <svg class="hero__cue" viewBox="0 0 24 16" aria-hidden="true"><path d="M3 4l9 8 9-8" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
+    <div class="hero__cta">
+      <a class="btn" href="https://apps.apple.com/app/open-road-arcade-cruiser/id6829421962">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.2 2.5-1.8 3.1-.5 7.7 1.3 10.2.9 1.2 1.9 2.6 3.2 2.6s1.8-.8 3.3-.8 2 .8 3.3.8c1.4 0 2.3-1.3 3.1-2.5 1-1.4 1.4-2.8 1.4-2.9 0 0-2.7-1-2.7-4.2zM14 5.3c.7-.9 1.2-2 1-3.2-1 0-2.3.7-3 1.6-.7.8-1.3 2-1.1 3.1 1.1.1 2.3-.6 3.1-1.5z"/></svg>
+        Pre-order on the App Store
+      </a>
+      <span class="hero__price">$2.99 for iPhone, iPad and Mac. Out December 3.</span>
     </div>
   </section>
 
-  <section class="trailer" aria-label="Trailer">
-    <div class="trailer__frame" id="trailer">
-      <img src="assets/shots/golden_fields_drop.jpg" alt="" loading="lazy">
+  <section class="panel trailer" id="trailer" aria-label="Trailer">
+    <div class="trailer__frame" id="trailer-frame">
+      <img src="assets/shots/golden_fields_drop.jpg" alt="">
       <button class="trailer__play" type="button" aria-label="Play the OPEN ROAD trailer">
         <span><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 4.5v15l12.5-7.5z"/></svg></span>
       </button>
     </div>
-    <p class="trailer__note">The trailer plays from YouTube when you press play.</p>
-    <p class="pitch">Just you, your bright red convertible and the open road. On a high-speed, coast-to-coast road trip across ten stunning stages.</p>
+    <p class="pitch">Just you, your bright red convertible and the open road. On a high-speed, coast-to-coast road trip across ten stunning stages, against nothing but the clock, traffic and the wind in your hair.</p>
   </section>
 
-  <section class="trip" aria-labelledby="trip-title">
-    <div class="trip__head">
-      <h2 id="trip-title">Ten stages, one road trip</h2>
-      <p>One continuous drive, from dawn on a seaside boulevard to sunset on a coastal island two days later. Beat the clock to each checkpoint, and every second you save rides on to the next stage.</p>
+  <section class="panel shots" id="screens" aria-labelledby="shots-title">
+    <h2 id="shots-title">Ten stages, coast to coast</h2>
+    <ul class="shots__grid">
+      <li><button type="button" data-full="assets/shots/ocean_boulevard.jpg"><img src="assets/shots/ocean_boulevard-s.jpg" alt="The convertible on a palm-lined boulevard below city towers." loading="lazy"></button></li>
+      <li><button type="button" data-full="assets/shots/golden_fields_hills.jpg"><img src="assets/shots/golden_fields_hills-s.jpg" alt="Trucks and a camper on a climb through golden hills." loading="lazy"></button></li>
+      <li><button type="button" data-full="assets/shots/sunset_bay_bridge.jpg"><img src="assets/shots/sunset_bay_bridge-s.jpg" alt="High over a great bridge across a blue bay." loading="lazy"></button></li>
+      <li><button type="button" data-full="assets/shots/old_town_street.jpg"><img src="assets/shots/old_town_street-s.jpg" alt="A blue sedan alongside on a cobbled street of old houses." loading="lazy"></button></li>
+      <li><button type="button" data-full="assets/shots/golden_fields_drop.jpg"><img src="assets/shots/golden_fields_drop-s.jpg" alt="A wide road tipping over a crest above a valley." loading="lazy"></button></li>
+      <li><button type="button" data-full="assets/shots/dark_forest_moon.jpg"><img src="assets/shots/dark_forest_moon-s.jpg" alt="A full moon over dark mountains on a night road." loading="lazy"></button></li>
+      <li><button type="button" data-full="assets/shots/red_canyon.jpg"><img src="assets/shots/red_canyon-s.jpg" alt="A sweeping bend under red canyon walls." loading="lazy"></button></li>
+      <li><button type="button" data-full="assets/shots/high_pass.jpg"><img src="assets/shots/high_pass-s.jpg" alt="The convertible below snowy peaks on a mountain road." loading="lazy"></button></li>
+      <li><button type="button" data-full="assets/shots/old_town_bridge.jpg"><img src="assets/shots/old_town_bridge-s.jpg" alt="High above a stone bridge curving over a river." loading="lazy"></button></li>
+    </ul>
+  </section>
+
+  <section class="panel deal" aria-labelledby="deal-title">
+    <div class="deal__in">
+      <div>
+        <h2 id="deal-title">One purchase, every screen</h2>
+        <dl>
+          <div><dt>iPhone, iPad and Mac</dt><dd>$2.99 once. Buy it on one, and it's yours on all three.</dd></div>
+          <div><dt>Nothing else to pay</dt><dd>No ads, no in-app purchases, no account. The game collects no data.</dd></div>
+          <div><dt>Made to feel good</dt><dd>One-touch controls or tilt on iPhone and iPad, keyboard or controller on Mac.</dd></div>
+          <div><dt>Your best, and the world's</dt><dd>Put your plate on your own Best Drivers board, and on WORLD, the Game Center leaderboard.</dd></div>
+        </dl>
+        <a class="btn" href="https://apps.apple.com/app/open-road-arcade-cruiser/id6829421962">Pre-order on the App Store</a>
+      </div>
+      <video src="assets/loop.mp4" poster="assets/loop-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Gameplay: the convertible weaving through traffic."></video>
     </div>
-    <ol class="route">
-      <li class="stage" style="--a:#C2577A;--b:#2A64C8">
-        <div class="stage__in">
-          <span class="stage__dot" aria-hidden="true"></span>
-          <div class="stage__text"><p class="stage__no">Stage 1</p><h3>Ocean Boulevard</h3><p>Dawn on the seafront. Palms, towers and the first traffic of the day.</p></div>
-          <div class="stage__pics"><img src="assets/shots/ocean_boulevard-s.jpg" srcset="assets/shots/ocean_boulevard-s.jpg 800w, assets/shots/ocean_boulevard.jpg 1600w" sizes="(max-width:760px) 92vw, 55vw" alt="The convertible on a palm-lined boulevard below city towers at dawn." loading="lazy"></div>
-        </div>
-      </li>
-      <li class="stage stage--bare" style="--a:#2A64C8;--b:#2C70D6">
-        <div class="stage__in">
-          <span class="stage__dot" aria-hidden="true"></span>
-          <div class="stage__text"><p class="stage__no">Stage 2</p><h3>The Causeway</h3><p>A road across open water: a town on the sea, a long bridge and a glass tunnel under the waves.</p></div>
-        </div>
-      </li>
-      <li class="stage" style="--a:#2C70D6;--b:#3B78C9">
-        <div class="stage__in">
-          <span class="stage__dot" aria-hidden="true"></span>
-          <div class="stage__text"><p class="stage__no">Stage 3</p><h3>Golden Fields</h3><p>Rolling hills, sunflowers, and an eight-lane road that drops straight into the valley.</p></div>
-          <div class="stage__pics stage__pics--two">
-            <img src="assets/shots/golden_fields_hills-s.jpg" srcset="assets/shots/golden_fields_hills-s.jpg 800w, assets/shots/golden_fields_hills.jpg 1600w" sizes="(max-width:760px) 46vw, 28vw" alt="Trucks and a camper on the climb through golden hills." loading="lazy">
-            <img src="assets/shots/golden_fields_drop-s.jpg" srcset="assets/shots/golden_fields_drop-s.jpg 800w, assets/shots/golden_fields_drop.jpg 1600w" sizes="(max-width:760px) 46vw, 28vw" alt="The wide road tipping over a crest above a patchwork valley." loading="lazy">
-          </div>
-        </div>
-      </li>
-      <li class="stage stage--bare" style="--a:#3B78C9;--b:#7A4A9E">
-        <div class="stage__in">
-          <span class="stage__dot" aria-hidden="true"></span>
-          <div class="stage__text"><p class="stage__no">Stage 4</p><h3>Vineyard Hills</h3><p>Narrow roads through the vines at dusk, a wine village and a chateau on the hill.</p></div>
-        </div>
-      </li>
-      <li class="stage" style="--a:#7A4A9E;--b:#0A1433">
-        <div class="stage__in">
-          <span class="stage__dot" aria-hidden="true"></span>
-          <div class="stage__text"><p class="stage__no">Stage 5</p><h3>Dark Forest</h3><p>The one night of the trip. Headlights, a hidden lake, and a long road into the moon.</p></div>
-          <div class="stage__pics"><img src="assets/shots/dark_forest_moon-s.jpg" srcset="assets/shots/dark_forest_moon-s.jpg 800w, assets/shots/dark_forest_moon.jpg 1600w" sizes="(max-width:760px) 92vw, 55vw" alt="A full moon over dark mountains, a truck ahead on the night road." loading="lazy"></div>
-        </div>
-      </li>
-      <li class="stage" style="--a:#0A1433;--b:#8C5A86">
-        <div class="stage__in">
-          <span class="stage__dot" aria-hidden="true"></span>
-          <div class="stage__text"><p class="stage__no">Stage 6</p><h3>Old Town</h3><p>First light on the cobblestones. Half-timbered houses, a cathedral and the old stone bridge.</p></div>
-          <div class="stage__pics stage__pics--two">
-            <img src="assets/shots/old_town_street-s.jpg" srcset="assets/shots/old_town_street-s.jpg 800w, assets/shots/old_town_street.jpg 1600w" sizes="(max-width:760px) 46vw, 28vw" alt="A blue sedan alongside on a cobbled street of old houses." loading="lazy">
-            <img src="assets/shots/old_town_bridge-s.jpg" srcset="assets/shots/old_town_bridge-s.jpg 800w, assets/shots/old_town_bridge.jpg 1600w" sizes="(max-width:760px) 46vw, 28vw" alt="High above the stone bridge as it curves over the river." loading="lazy">
-          </div>
-        </div>
-      </li>
-      <li class="stage" style="--a:#8C5A86;--b:#3B5C93">
-        <div class="stage__in">
-          <span class="stage__dot" aria-hidden="true"></span>
-          <div class="stage__text"><p class="stage__no">Stage 7</p><h3>High Pass</h3><p>Two lanes, falling snow and a long drop at the edge. The climb to the top of the trip.</p></div>
-          <div class="stage__pics"><img src="assets/shots/high_pass-s.jpg" srcset="assets/shots/high_pass-s.jpg 800w, assets/shots/high_pass.jpg 1600w" sizes="(max-width:760px) 92vw, 55vw" alt="The convertible below snowy peaks on a mountain road." loading="lazy"></div>
-        </div>
-      </li>
-      <li class="stage" style="--a:#3B5C93;--b:#A7442A">
-        <div class="stage__in">
-          <span class="stage__dot" aria-hidden="true"></span>
-          <div class="stage__text"><p class="stage__no">Stage 8</p><h3>Red Canyon</h3><p>Red walls, a green river below, and then the canyon opens onto a vast valley.</p></div>
-          <div class="stage__pics"><img src="assets/shots/red_canyon-s.jpg" srcset="assets/shots/red_canyon-s.jpg 800w, assets/shots/red_canyon.jpg 1600w" sizes="(max-width:760px) 92vw, 55vw" alt="A sweeping bend under towering red canyon walls." loading="lazy"></div>
-        </div>
-      </li>
-      <li class="stage stage--bare" style="--a:#A7442A;--b:#9A5E1E">
-        <div class="stage__in">
-          <span class="stage__dot" aria-hidden="true"></span>
-          <div class="stage__text"><p class="stage__no">Stage 9</p><h3>Sand Sea</h3><p>Dunes to the horizon and a sandstorm on the last climb. Then, over the top, the sea.</p></div>
-        </div>
-      </li>
-      <li class="stage" style="--a:#9A5E1E;--b:#C2463A">
-        <div class="stage__in">
-          <span class="stage__dot" aria-hidden="true"></span>
-          <div class="stage__text"><p class="stage__no">Stage 10</p><h3>Sunset Bay</h3><p>The widest road of all, a great bridge over the bay, and a victory lap into the sunset.</p></div>
-          <div class="stage__pics"><img src="assets/shots/sunset_bay_bridge-s.jpg" srcset="assets/shots/sunset_bay_bridge-s.jpg 800w, assets/shots/sunset_bay_bridge.jpg 1600w" sizes="(max-width:760px) 92vw, 55vw" alt="High over a cable-stayed bridge stretching across a blue bay." loading="lazy"></div>
-        </div>
-      </li>
-    </ol>
   </section>
 
-  <section class="deal" aria-labelledby="deal-title">
-    <div>
-      <h2 id="deal-title">One purchase, every screen</h2>
-      <dl>
-        <div><dt>iPhone, iPad and Mac</dt><dd>$2.99 once. Buy it on one, and it's yours on all three.</dd></div>
-        <div><dt>Nothing else to pay</dt><dd>No ads, no in-app purchases, no account. The game collects no data.</dd></div>
-        <div><dt>Made to feel good</dt><dd>One-touch controls or tilt on iPhone and iPad, keyboard or controller on Mac.</dd></div>
-        <div><dt>Your best, and the world's</dt><dd>Put your plate on your own Best Drivers board, and on WORLD, the Game Center leaderboard.</dd></div>
-      </dl>
-      <a class="btn" href="https://apps.apple.com/app/open-road-arcade-cruiser/id6829421962">Pre-order on the App Store</a>
-    </div>
-    <video src="assets/loop.mp4" poster="assets/loop-poster.jpg" autoplay muted loop playsinline preload="metadata" aria-label="Gameplay: the convertible weaving through traffic on several stages."></video>
-  </section>
-
-  <section class="press" id="press" aria-labelledby="press-title">
+  <section class="panel press" id="press" aria-labelledby="press-title">
     <div class="press__in">
       <div>
         <h2 id="press-title">For press and creators</h2>
-        <p>Screenshots for iPhone and Mac, the poster, the icon and a fact sheet, all in one download. Want to play before launch, or need a code on release day? Write to us.</p>
-        <a class="btn" href="press/OPEN_ROAD_press_kit.zip" download>Download the press kit (17 MB)</a>
+        <p>The fact sheet, screenshots for iPhone and Mac, the poster and the icon. Want to play before launch, or need a code on release day? Write to us.</p>
+        <div class="press__btns">
+          <a class="btn" href="press/OPEN_ROAD_press_kit.zip" download>Download the press kit</a>
+          <a class="btn btn--line" href="press/OPEN_ROAD_fact_sheet.pdf">Fact sheet (PDF)</a>
+        </div>
       </div>
       <dl class="facts">
         <dt>Developer</dt><dd>JAR Studio, Denmark</dd>
@@ -280,27 +235,87 @@ p{margin:0}
         <dt>Contact</dt><dd><a href="mailto:stefanjaworski@hotmail.com">stefanjaworski@hotmail.com</a></dd>
       </dl>
     </div>
+    <footer class="foot">
+      <p>OPEN ROAD is made by JAR Studio in Denmark. © 2026 Stefan Jaworski.</p>
+      <nav><a href="https://languid-launch-778.notion.site/OPEN-ROAD-Privacy-Support-40b2b8a267ae806792acd37067781368">Privacy and support</a></nav>
+    </footer>
   </section>
 </main>
 
-<footer class="foot">
-  <p>OPEN ROAD is made by JAR Studio in Denmark. © 2026 Stefan Jaworski.</p>
-  <nav>
-    <a href="https://languid-launch-778.notion.site/OPEN-ROAD-Privacy-Support-40b2b8a267ae806792acd37067781368">Privacy and support</a>
-    <a href="#press">Press</a>
-  </nav>
-</footer>
+<button class="step step--prev" type="button" aria-label="Previous" hidden><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<button class="step step--next step--nudge" type="button" aria-label="Next"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+<nav class="dots" aria-label="Pages"></nav>
+
+<dialog class="viewer" aria-label="Screenshot">
+  <img alt="">
+  <button class="viewer__close" type="button" aria-label="Close">×</button>
+</dialog>
 
 <script>
-// The trailer loads from YouTube only when someone presses play.
-document.querySelector('.trailer__play').addEventListener('click', function () {
-  var f = document.getElementById('trailer');
-  f.innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/0KMq4egPavU?autoplay=1&rel=0" title="OPEN ROAD trailer" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
-});
-// Respect reduced motion for the gameplay loop.
-if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-  var v = document.querySelector('.deal video'); v.removeAttribute('autoplay'); v.pause(); v.controls = true;
-}
+(function () {
+  // trailer: loads from YouTube only on play
+  document.querySelector('.trailer__play').addEventListener('click', function () {
+    document.getElementById('trailer-frame').innerHTML = '<iframe src="https://www.youtube-nocookie.com/embed/0KMq4egPavU?autoplay=1&rel=0" title="OPEN ROAD trailer" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>';
+  });
+
+  // screenshots: full size on click
+  var viewer = document.querySelector('.viewer'), vImg = viewer.querySelector('img');
+  var shots = Array.prototype.slice.call(document.querySelectorAll('.shots__grid button')), shotAt = 0;
+  function show(i) { shotAt = (i + shots.length) % shots.length; var b = shots[shotAt]; vImg.src = b.dataset.full; vImg.alt = b.querySelector('img').alt; }
+  shots.forEach(function (b, i) { b.addEventListener('click', function () { show(i); viewer.showModal(); }); });
+  viewer.addEventListener('click', function () { viewer.close(); });
+
+  var v = document.querySelector('.deal video');
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches) { v.removeAttribute('autoplay'); v.pause(); v.controls = true; }
+
+  // computer: one tableau at a time, side by side
+  var wide = matchMedia('(min-width:1000px) and (min-height:620px) and (hover:hover) and (pointer:fine)');
+  var reel = document.querySelector('.reel'), panels = document.querySelectorAll('.panel');
+  var prev = document.querySelector('.step--prev'), next = document.querySelector('.step--next'), dots = document.querySelector('.dots');
+  var names = ['Start', 'Trailer', 'Screenshots', 'One purchase', 'Press'], at = 0, lock = false;
+  names.forEach(function (n, i) {
+    var d = document.createElement('button'); d.type = 'button'; d.setAttribute('aria-label', n);
+    d.addEventListener('click', function () { go(i); }); dots.appendChild(d);
+  });
+  function go(i) {
+    if (!wide.matches) { panels[i].scrollIntoView({ behavior: 'smooth' }); return; }
+    i = Math.max(0, Math.min(panels.length - 1, i));
+    reel.scrollTo({ left: i * reel.clientWidth, behavior: 'smooth' });
+  }
+  function mark() {
+    at = Math.round(reel.scrollLeft / reel.clientWidth);
+    prev.hidden = at === 0; next.hidden = at === panels.length - 1;
+    Array.prototype.forEach.call(dots.children, function (d, i) { d.setAttribute('aria-current', i === at ? 'true' : 'false'); });
+    document.body.classList.toggle('is-press', at === panels.length - 1);
+  }
+  reel.addEventListener('scroll', function () { window.requestAnimationFrame(mark); }, { passive: true });
+  prev.addEventListener('click', function () { go(at - 1); });
+  next.addEventListener('click', function () { next.classList.remove('step--nudge'); go(at + 1); });
+  document.querySelectorAll('[data-go]').forEach(function (a) { a.addEventListener('click', function (e) { if (wide.matches) { e.preventDefault(); go(+a.dataset.go); } }); });
+  document.addEventListener('keydown', function (e) {
+    if (viewer.open) {
+      if (e.key === 'ArrowRight') show(shotAt + 1);
+      if (e.key === 'ArrowLeft') show(shotAt - 1);
+      return;
+    }
+    if (!wide.matches) return;
+    if (['ArrowRight', 'ArrowDown', 'PageDown', ' '].indexOf(e.key) > -1) { e.preventDefault(); go(at + 1); }
+    if (['ArrowLeft', 'ArrowUp', 'PageUp'].indexOf(e.key) > -1) { e.preventDefault(); go(at - 1); }
+    if (e.key === 'Home') { e.preventDefault(); go(0); }
+    if (e.key === 'End') { e.preventDefault(); go(panels.length - 1); }
+  });
+  // a mouse wheel or trackpad scroll moves one tableau at a time
+  reel.addEventListener('wheel', function (e) {
+    if (!wide.matches) return;
+    if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+    e.preventDefault();
+    if (lock || Math.abs(e.deltaY) < 8) return;
+    lock = true; go(at + (e.deltaY > 0 ? 1 : -1));
+    setTimeout(function () { lock = false; }, 750);
+  }, { passive: false });
+  window.addEventListener('resize', function () { if (wide.matches) reel.scrollLeft = at * reel.clientWidth; });
+  mark();
+})();
 </script>
 </body>
 </html>
